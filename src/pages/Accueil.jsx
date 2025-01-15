@@ -7,7 +7,7 @@ function Accueil() {
   const [photographers] = useState(data.photographers);
   return (
     <main id="main">
-      <div className="photographer_section">
+      <div className="photographer_section" data-aos="fade-down">
         <Card photographers={photographers} />
       </div>
     </main>

@@ -25,7 +25,7 @@ function CreationPhotographe({ media, id }) {
   return (
     <section className="photograph-medias">
       {media.map((mediaItem) => (
-        <article className="card" key={mediaItem.id}>
+        <article className="card" key={mediaItem.id} data-aos="fade-up">
           <Link>
             <img
               src={`/assets/photographers/medias/${id}/${mediaItem.image}`}

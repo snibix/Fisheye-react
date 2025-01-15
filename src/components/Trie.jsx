@@ -2,7 +2,7 @@
 
 function Trie() {
   return (
-    <section className="photograph-filter">
+    <section className="photograph-filter" data-aos="fade-right">
       <label htmlFor="sort">Trier par</label>
       <select id="sort">
         <option value="likes">Popularité</option>

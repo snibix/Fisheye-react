@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 function HeaderDetail({ photographer }) {
   return (
-    <section className="photograph-header">
+    <section className="photograph-header" data-aos="fade-down">
       <div>
         <h1 className="photograph-title">{photographer.name}</h1>
         <h2 className="photograph-country">
