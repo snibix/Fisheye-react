@@ -212,6 +212,8 @@ form input {
   font-size: 0.8em;
 }
 .photograph-medias {
+  max-width: 1700px;
+  margin: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   padding: 0 100px 100px;
@@ -258,6 +260,7 @@ form input {
   font-weight: 100;
   font-size: 23px;
   color: var(--primary-color);
+  padding-left: 5px;
 }
 .btn-likes .icon-likes:hover {
   font-weight: 900;

@@ -1,3 +1,4 @@
+import "font-awesome/css/font-awesome.min.css";
 import { Route, HashRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
