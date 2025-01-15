@@ -1,7 +1,7 @@
 // import React from 'react'
 import PropTypes from "prop-types";
 
-function HeaderDetail({ photographer }) {
+function HeaderDetail({ photographer, openModal }) {
   return (
     <section className="photograph-header" data-aos="fade-down">
       <div>
@@ -11,7 +11,9 @@ function HeaderDetail({ photographer }) {
         </h2>
         <p className="photograph-tagline">{photographer.tagline}</p>
       </div>
-      <button className="contact_button">Contactez-moi</button>
+      <button className="contact_button" onClick={openModal}>
+        Contactez-moi
+      </button>
       <img
         src={`/assets/photographers/portrait/${photographer.portrait}`}
         alt="photo de profil"
@@ -23,6 +25,7 @@ function HeaderDetail({ photographer }) {
 
 HeaderDetail.propTypes = {
   photographer: PropTypes.object,
+  openModal: PropTypes.bool,
 };
 
 export default HeaderDetail;

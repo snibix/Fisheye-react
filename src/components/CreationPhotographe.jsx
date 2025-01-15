@@ -6,45 +6,45 @@ import { useState } from "react";
 import { Link } from "react-router";
 
 function CreationPhotographe({ media, id }) {
-  // Créer un tableau d'états pour les likes des médias
+  // Initialisation des likes et des états des coeurs pour chaque media
   const [likedMedia, setLikedMedia] = useState(
-    media.reduce((acc, cur) => {
-      acc[cur.id] = false; // initialiser tous les médias comme non aimés
+    media.reduce((acc, item) => {
+      acc[item.id] = false; // Par défaut, tous les coeurs sont vides
       return acc;
     }, {})
   );
 
-  // Fonction pour basculer l'état de like pour un média donné
-  const toggleLike = (mediaId) => {
-    setLikedMedia((prevState) => ({
-      ...prevState,
-      [mediaId]: !prevState[mediaId], // inverse l'état du like
-    }));
+  // Fonction pour gérer le clic sur le cœur
+  const handleLike = (photoId) => {
+    setLikedMedia((prevLikedMedia) => {
+      const newLikedMedia = { ...prevLikedMedia };
+      newLikedMedia[photoId] = !newLikedMedia[photoId]; // Alterner l'état du cœur (rempli/vidé)
+      return newLikedMedia;
+    });
   };
 
   return (
     <section className="photograph-medias">
-      {media.map((mediaItem) => (
-        <article className="card" key={mediaItem.id} data-aos="fade-up">
+      {media.map((photo) => (
+        <article className="card" key={photo.id} data-aos="fade-up">
           <Link>
             <img
-              src={`/assets/photographers/medias/${id}/${mediaItem.image}`}
+              src={`/assets/photographers/medias/${id}/${photo.image}`}
               className="card-img"
-              alt={`photo de profil ${mediaItem.name}`}
+              alt={`photo de profil ${photo.name}`}
             />
           </Link>
           <div className="card-body">
-            <h3 className="card-title">{mediaItem.title}</h3>
+            <h3 className="card-title">{photo.title}</h3>
             <div className="card-likes">
-              <span className="number-likes">{mediaItem.likes}</span>
+              <span className="number-likes">{photo.likes}</span>
               <button
                 className="btn-likes"
-                onClick={() => toggleLike(mediaItem.id)}
+                onClick={() => handleLike(photo.id)} // Ajoute ou enlève un like au clic
               >
+                {/* TODO: A terminer : -incrementations des likes */}
                 <FontAwesomeIcon
-                  icon={
-                    likedMedia[mediaItem.id] ? faHeartSolid : faHeartRegular
-                  }
+                  icon={likedMedia[photo.id] ? faHeartSolid : faHeartRegular} // Afficher le coeur plein ou vide
                   className="icon-likes"
                 />
               </button>
