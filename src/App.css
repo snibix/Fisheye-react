@@ -1,42 +1,284 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+@import url("photographer.css");
+:root {
+  --primary-color: #901c1c;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-right: 100px;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  height: 50px;
+  margin-left: 100px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.photographer_section {
+  display: grid;
+  width: 1500px;
+  margin: auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 70px;
+  margin-top: 50px;
+}
+.photographer_section a {
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.photographer_section .card {
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.card {
-  padding: 2em;
+.photographer_section .card-title {
+  color: #d3573c;
+  font-size: 36px;
+  margin: 10px 0 0 0;
+  padding: 5px;
 }
 
-.read-the-docs {
-  color: #888;
+.photographer_section .card-img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  image-rendering: smooth;
+  display: inline-block;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25));
+}
+
+.photographer_section p {
+  margin: 0;
+  padding: 5px;
+}
+.country_photographer {
+  color: var(--primary-color);
+}
+#main {
+  width: 1600px;
+  margin: auto;
+}
+
+#contact_modal {
+  border: none;
+}
+
+.contact_button {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 11px;
+  width: 170px;
+  height: 70px;
+  border: none;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal {
+  border-radius: 5px;
+  background-color: #db8876;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px;
+  margin: auto;
+}
+
+.modal header {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card .card-img {
+  cursor: pointer;
+}
+
+.modal header h2 {
+  font-size: 64px;
+  font-weight: normal;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+form label {
+  color: #312e2e;
+  font-size: 36px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: self-start;
+  margin-bottom: 26px;
+}
+
+form input {
+  width: 100%;
+  height: 68px;
+  border: none;
+  border-radius: 5px;
+}
+
+.header-logo {
+  width: 1600px;
+  margin: auto;
+}
+
+.photograph-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  height: 300px;
+  margin: 0 100px;
+  padding: 0 50px;
+}
+
+.photograph-header .photograph-title {
+  margin: 0;
+  font-size: 64px;
+  padding: 0 10px;
+}
+
+.photograph-header .photograph-country {
+  font-size: 30px;
+  font-weight: 100;
+  margin: 0;
+  padding: 15px 10px;
+  color: var(--primary-color);
+}
+.photograph-header .photograph-tagline {
+  font-size: 20px;
+  margin: 0;
+  padding: 15px 10px;
+  color: #525252;
+}
+.photograph-header .photograph-img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25));
+}
+.photograph-filter {
+  padding: 20px 100px 58px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.photograph-filter select {
+  font: inherit;
+  color: #fff;
+  background-color: var(--primary-color);
+  margin-left: 1rem;
+  padding: 0.5rem 1em;
+  border: none;
+  font-size: 0.8em;
+}
+.photograph-medias {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 100px 100px;
+  gap: 30px 95px;
+}
+.photograph-medias .card-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.photograph-medias .card-body {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.btn-closes {
+  background: none;
+  border: none;
+}
+.photograph-medias .card-title {
+  color: var(--primary-color);
+  margin: 0;
+  font-size: 28px;
+  padding: 10px 0;
+}
+.photograph-medias .card-likes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+}
+.card-likes .number-likes {
+  font-size: 23px;
+}
+.card-likes .btn-likes {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.btn-likes .icon-likes {
+  font-weight: 100;
+  font-size: 23px;
+  color: var(--primary-color);
+}
+.btn-likes .icon-likes:hover {
+  font-weight: 900;
+}
+.i-liked {
+  font-weight: 900;
+  font-size: 23px;
+  color: var(--primary-color);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.photograph-aside {
+  position: fixed;
+  display: flex;
+  gap: 2em;
+  bottom: 0;
+  right: calc(50vw - 770px);
+  padding: 1.5rem 3rem;
+  background-color: #db8876;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
 }
