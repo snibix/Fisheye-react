@@ -3,7 +3,8 @@ import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
+import MediaContent from "./MediaContent";
 
 function CreationPhotographe({ media, id }) {
   // Initialisation des likes et des états des coeurs pour chaque media
@@ -25,7 +26,6 @@ function CreationPhotographe({ media, id }) {
   const handleLike = (photoId) => {
     const isCurrentlyLiked = likedMedia[photoId];
 
-    // Mise à jour simultanée des deux états
     setLikedMedia((prev) => ({
       ...prev,
       [photoId]: !isCurrentlyLiked,
@@ -39,25 +39,18 @@ function CreationPhotographe({ media, id }) {
 
   return (
     <section className="photograph-medias">
-      {media.map((photo) => (
-        <article className="card" key={photo.id} data-aos="fade-up">
+      {media.map((item) => (
+        <article className="card" key={item.id} data-aos="fade-up">
           <Link>
-            <img
-              src={`/assets/photographers/medias/${id}/${photo.image}`}
-              className="card-img"
-              alt={`photo de profil ${photo.name}`}
-            />
+            <MediaContent item={item} photographerId={id} />
           </Link>
           <div className="card-body">
-            <h3 className="card-title">{photo.title}</h3>
+            <h3 className="card-title">{item.title}</h3>
             <div className="card-likes">
-              <span className="number-likes">{likesCount[photo.id]}</span>
-              <button
-                className="btn-likes"
-                onClick={() => handleLike(photo.id)}
-              >
+              <span className="number-likes">{likesCount[item.id]}</span>
+              <button className="btn-likes" onClick={() => handleLike(item.id)}>
                 <FontAwesomeIcon
-                  icon={likedMedia[photo.id] ? faHeartSolid : faHeartRegular}
+                  icon={likedMedia[item.id] ? faHeartSolid : faHeartRegular}
                   className="icon-likes"
                 />
               </button>
@@ -70,8 +63,16 @@ function CreationPhotographe({ media, id }) {
 }
 
 CreationPhotographe.propTypes = {
-  media: PropTypes.array.isRequired,
-  id: PropTypes.number.isRequired,
+  media: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      image: PropTypes.string,
+      video: PropTypes.string,
+      likes: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default CreationPhotographe;
