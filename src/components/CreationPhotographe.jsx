@@ -9,18 +9,32 @@ function CreationPhotographe({ media, id }) {
   // Initialisation des likes et des états des coeurs pour chaque media
   const [likedMedia, setLikedMedia] = useState(
     media.reduce((acc, item) => {
-      acc[item.id] = false; // Par défaut, tous les coeurs sont vides
+      acc[item.id] = false;
+      return acc;
+    }, {})
+  );
+
+  const [likesCount, setLikesCount] = useState(
+    media.reduce((acc, item) => {
+      acc[item.id] = item.likes;
       return acc;
     }, {})
   );
 
   // Fonction pour gérer le clic sur le cœur
   const handleLike = (photoId) => {
-    setLikedMedia((prevLikedMedia) => {
-      const newLikedMedia = { ...prevLikedMedia };
-      newLikedMedia[photoId] = !newLikedMedia[photoId]; // Alterner l'état du cœur (rempli/vidé)
-      return newLikedMedia;
-    });
+    const isCurrentlyLiked = likedMedia[photoId];
+
+    // Mise à jour simultanée des deux états
+    setLikedMedia((prev) => ({
+      ...prev,
+      [photoId]: !isCurrentlyLiked,
+    }));
+
+    setLikesCount((prev) => ({
+      ...prev,
+      [photoId]: prev[photoId] + (isCurrentlyLiked ? -1 : 1),
+    }));
   };
 
   return (
@@ -37,14 +51,13 @@ function CreationPhotographe({ media, id }) {
           <div className="card-body">
             <h3 className="card-title">{photo.title}</h3>
             <div className="card-likes">
-              <span className="number-likes">{photo.likes}</span>
+              <span className="number-likes">{likesCount[photo.id]}</span>
               <button
                 className="btn-likes"
-                onClick={() => handleLike(photo.id)} // Ajoute ou enlève un like au clic
+                onClick={() => handleLike(photo.id)}
               >
-                {/* TODO: A terminer : -incrementations des likes */}
                 <FontAwesomeIcon
-                  icon={likedMedia[photo.id] ? faHeartSolid : faHeartRegular} // Afficher le coeur plein ou vide
+                  icon={likedMedia[photo.id] ? faHeartSolid : faHeartRegular}
                   className="icon-likes"
                 />
               </button>

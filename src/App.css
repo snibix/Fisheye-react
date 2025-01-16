@@ -167,8 +167,9 @@ form input {
   align-items: center;
   background-color: #fafafa;
   height: 300px;
-  margin: 0 100px;
   padding: 0 50px;
+  max-width: 1400px;
+  margin: auto;
 }
 
 .photograph-header .photograph-title {
@@ -201,6 +202,8 @@ form input {
   padding: 20px 100px 58px;
   font-size: 1.8rem;
   font-weight: bold;
+  max-width: 1500px;
+  margin: auto;
 }
 .photograph-filter select {
   font: inherit;
@@ -212,7 +215,7 @@ form input {
   font-size: 0.8em;
 }
 .photograph-medias {
-  max-width: 1700px;
+  max-width: 1400px;
   margin: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

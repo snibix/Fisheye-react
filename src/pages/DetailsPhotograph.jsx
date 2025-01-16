@@ -65,7 +65,7 @@ function DetailsPhotograph() {
           <h2 className="modal_title">
             Contactez-moi
             <br />
-            <span className="title_photograph"></span>
+            <span className="title_photograph">{photographer.name}</span>
           </h2>
           <button
             className="btn-closes"
