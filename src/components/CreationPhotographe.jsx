@@ -6,8 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import MediaContent from "./MediaContent";
 
-function CreationPhotographe({ media, id, onUpdateLikes }) {
-  // Initialisation des likes et des états des coeurs pour chaque media
+function CreationPhotographe({ media, id, onUpdateLikes, sortBy }) {
   const [likedMedia, setLikedMedia] = useState(
     media.reduce((acc, item) => {
       acc[item.id] = false;
@@ -21,6 +20,20 @@ function CreationPhotographe({ media, id, onUpdateLikes }) {
       return acc;
     }, {})
   );
+
+  // Trier les médias en fonction de `sortBy`
+  const sortedMedia = [...media].sort((a, b) => {
+    switch (sortBy) {
+      case "likes":
+        return b.likes - a.likes; // Trier par popularité (likes)
+      case "dates":
+        return new Date(b.date) - new Date(a.date); // Trier par date
+      case "titles":
+        return a.title.localeCompare(b.title); // Trier par titre
+      default:
+        return 0; // Ne rien changer si la valeur n'est pas reconnue
+    }
+  });
 
   // Fonction pour gérer le clic sur le cœur
   const handleLike = (photoId) => {
@@ -50,7 +63,7 @@ function CreationPhotographe({ media, id, onUpdateLikes }) {
 
   return (
     <section className="photograph-medias">
-      {media.map((item) => (
+      {sortedMedia.map((item) => (
         <article className="card" key={item.id} data-aos="fade-up">
           <Link>
             <MediaContent item={item} photographerId={id} />
@@ -85,6 +98,7 @@ CreationPhotographe.propTypes = {
   ).isRequired,
   id: PropTypes.string.isRequired,
   onUpdateLikes: PropTypes.func,
+  sortBy: PropTypes.string,
 };
 
 export default CreationPhotographe;

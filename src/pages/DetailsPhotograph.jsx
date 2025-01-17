@@ -15,6 +15,11 @@ function DetailsPhotograph() {
   const [error, setError] = useState("");
   const [totalLikes, setTotalLikes] = useState(0);
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
+  const [sortBy, setSortBy] = useState("likes"); // Gérer l'option de tri ici
+
+  const handleSortChange = (newSortBy) => {
+    setSortBy(newSortBy); // Mettre à jour l'option de tri
+  };
 
   useEffect(() => {
     try {
@@ -63,11 +68,12 @@ function DetailsPhotograph() {
           setModalIsOpen(true);
         }}
       />
-      <Trie />
+      <Trie onSortChange={handleSortChange} />
       <CreationPhotographe
         media={media}
         id={id}
         onUpdateLikes={handleUpdateLikes}
+        sortBy={sortBy}
       />
 
       <Modal
