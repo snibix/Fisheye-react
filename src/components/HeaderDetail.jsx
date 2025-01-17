@@ -25,7 +25,7 @@ function HeaderDetail({ photographer, openModal }) {
 
 HeaderDetail.propTypes = {
   photographer: PropTypes.object,
-  openModal: PropTypes.bool,
+  openModal: PropTypes.func,
 };
 
 export default HeaderDetail;

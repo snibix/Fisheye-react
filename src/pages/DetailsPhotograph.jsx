@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useParams } from "react-router-dom";
 import CreationPhotographe from "../components/CreationPhotographe";
 import HeaderDetail from "../components/HeaderDetail";
+import TotalLikes from "../components/TotalLikes";
 import Trie from "../components/Trie";
 import data from "../data/photographers.json";
 
@@ -109,6 +110,12 @@ function DetailsPhotograph() {
           <button className="contact_button">Envoyer</button>
         </form>
       </Modal>
+      <aside className="photograph-aside">
+        <TotalLikes likeImg={media} />
+        <div>
+          <span id="price">{photographer.price}€ / Jour</span>
+        </div>
+      </aside>
     </main>
   );
 }
