@@ -13,7 +13,7 @@ function DetailsPhotograph() {
   const [media, setMedia] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const [totalLikes, setTotalLikes] = useState(0);
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
   useEffect(() => {
@@ -23,11 +23,17 @@ function DetailsPhotograph() {
       );
       if (photographerData) {
         setPhotographer(photographerData);
-        setMedia(
-          data.media.filter(
-            (media) => media.photographerId === photographerData.id
-          )
+        const filteredMedia = data.media.filter(
+          (media) => media.photographerId === photographerData.id
         );
+        setMedia(filteredMedia);
+
+        // Calculer le total initial des likes
+        const initialTotalLikes = filteredMedia.reduce(
+          (total, item) => total + item.likes,
+          0
+        );
+        setTotalLikes(initialTotalLikes);
       } else {
         setError("Photographe non trouvé");
       }
@@ -36,6 +42,10 @@ function DetailsPhotograph() {
     }
     setLoading(false);
   }, [id]);
+
+  const handleUpdateLikes = (newTotalLikes) => {
+    setTotalLikes(newTotalLikes);
+  };
 
   if (loading) {
     return <div>Chargement...</div>;
@@ -54,7 +64,11 @@ function DetailsPhotograph() {
         }}
       />
       <Trie />
-      <CreationPhotographe media={media} id={id} />
+      <CreationPhotographe
+        media={media}
+        id={id}
+        onUpdateLikes={handleUpdateLikes}
+      />
 
       <Modal
         isOpen={modalIsOpen}
@@ -111,7 +125,7 @@ function DetailsPhotograph() {
         </form>
       </Modal>
       <aside className="photograph-aside">
-        <TotalLikes likeImg={media} />
+        <TotalLikes totalLikes={totalLikes} />
         <div>
           <span id="price">{photographer.price}€ / Jour</span>
         </div>

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import MediaContent from "./MediaContent";
 
-function CreationPhotographe({ media, id }) {
+function CreationPhotographe({ media, id, onUpdateLikes }) {
   // Initialisation des likes et des états des coeurs pour chaque media
   const [likedMedia, setLikedMedia] = useState(
     media.reduce((acc, item) => {
@@ -31,10 +31,21 @@ function CreationPhotographe({ media, id }) {
       [photoId]: !isCurrentlyLiked,
     }));
 
-    setLikesCount((prev) => ({
-      ...prev,
-      [photoId]: prev[photoId] + (isCurrentlyLiked ? -1 : 1),
-    }));
+    setLikesCount((prev) => {
+      const newLikesCount = {
+        ...prev,
+        [photoId]: prev[photoId] + (isCurrentlyLiked ? -1 : 1),
+      };
+
+      // Met à jour le total des likes dans le parent
+      const totalLikes = Object.values(newLikesCount).reduce(
+        (total, count) => total + count,
+        0
+      );
+      onUpdateLikes(totalLikes);
+
+      return newLikesCount;
+    });
   };
 
   return (
@@ -73,6 +84,7 @@ CreationPhotographe.propTypes = {
     })
   ).isRequired,
   id: PropTypes.string.isRequired,
+  onUpdateLikes: PropTypes.func,
 };
 
 export default CreationPhotographe;
