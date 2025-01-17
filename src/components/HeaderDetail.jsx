@@ -1,4 +1,3 @@
-// import React from 'react'
 import PropTypes from "prop-types";
 
 function HeaderDetail({ photographer, openModal }) {
@@ -15,7 +14,7 @@ function HeaderDetail({ photographer, openModal }) {
         Contactez-moi
       </button>
       <img
-        src={`/assets/photographers/portrait/${photographer.portrait}`}
+        src={`./assets/photographers/portrait/${photographer.portrait}`}
         alt="photo de profil"
         className="photograph-img"
       />

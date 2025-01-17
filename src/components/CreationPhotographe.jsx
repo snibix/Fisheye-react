@@ -89,7 +89,6 @@ function CreationPhotographe({ media, id, onUpdateLikes, sortBy }) {
           <div className="card-body">
             <h3 className="card-title">{item.title}</h3>
             <div className="card-likes">
-              {/* Utilisation de likesCount au lieu de item.likes */}
               <span className="number-likes">{likesCount[item.id]}</span>
               <button className="btn-likes" onClick={() => handleLike(item.id)}>
                 <FontAwesomeIcon

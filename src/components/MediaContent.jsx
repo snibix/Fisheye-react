@@ -11,7 +11,7 @@ function MediaContent({ item, photographerId }) {
     return (
       <video className="card-img" controls>
         <source
-          src={`/assets/photographers/medias/${photographerId}/${item.video}`}
+          src={`./assets/photographers/medias/${photographerId}/${item.video}`}
           type="video/mp4"
         />
         Votre navigateur ne supporte pas la lecture de vidéos.
@@ -21,7 +21,7 @@ function MediaContent({ item, photographerId }) {
 
   return (
     <img
-      src={`/assets/photographers/medias/${photographerId}/${item.image}`}
+      src={`./assets/photographers/medias/${photographerId}/${item.image}`}
       className="card-img"
       alt={`photo de ${item.title}`}
     />

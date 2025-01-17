@@ -1,4 +1,3 @@
-// Lightbox.jsx
 import PropTypes from "prop-types";
 
 function Lightbox({ images, isOpen, closeModal, currentIndex, changeImage }) {
@@ -14,8 +13,8 @@ function Lightbox({ images, isOpen, closeModal, currentIndex, changeImage }) {
 
   // Construire le chemin du média
   const mediaPath = currentMedia.video
-    ? `/assets/photographers/medias/${currentMedia.photographerId}/${currentMedia.video}`
-    : `/assets/photographers/medias/${currentMedia.photographerId}/${currentMedia.image}`;
+    ? `./assets/photographers/medias/${currentMedia.photographerId}/${currentMedia.video}`
+    : `./assets/photographers/medias/${currentMedia.photographerId}/${currentMedia.image}`;
 
   return (
     <div className="lightbox">

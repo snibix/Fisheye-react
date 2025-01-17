@@ -1,6 +1,4 @@
-// import React from 'react'
 import PropTypes from "prop-types";
-
 import { Link } from "react-router";
 
 function Card({ photographers }) {
@@ -10,7 +8,7 @@ function Card({ photographers }) {
         <article className="card" key={photographer.id}>
           <Link to={`/photographer/${photographer.id}`}>
             <img
-              src={`/assets/photographers/portrait/${photographer.portrait}`}
+              src={`./assets/photographers/portrait/${photographer.portrait}`}
               className="card-img"
               alt={`photo de profil${photographer.name}`}
             />
