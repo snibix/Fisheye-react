@@ -3,17 +3,19 @@ import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Lightbox from "./LightBox";
 import MediaContent from "./MediaContent";
 
 function CreationPhotographe({ media, id, onUpdateLikes, sortBy }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [likedMedia, setLikedMedia] = useState(
     media.reduce((acc, item) => {
       acc[item.id] = false;
       return acc;
     }, {})
   );
-
+  // Ajout du state likesCount initialisé avec les likes de chaque média
   const [likesCount, setLikesCount] = useState(
     media.reduce((acc, item) => {
       acc[item.id] = item.likes;
@@ -21,21 +23,25 @@ function CreationPhotographe({ media, id, onUpdateLikes, sortBy }) {
     }, {})
   );
 
-  // Trier les médias en fonction de `sortBy`
-  const sortedMedia = [...media].sort((a, b) => {
-    switch (sortBy) {
-      case "likes":
-        return b.likes - a.likes; // Trier par popularité (likes)
-      case "dates":
-        return new Date(b.date) - new Date(a.date); // Trier par date
-      case "titles":
-        return a.title.localeCompare(b.title); // Trier par titre
-      default:
-        return 0; // Ne rien changer si la valeur n'est pas reconnue
-    }
-  });
+  const openModal = (index) => {
+    setCurrentIndex(index);
+    setModalIsOpen(true);
+  };
 
-  // Fonction pour gérer le clic sur le cœur
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const changeImage = (direction) => {
+    if (direction === "next") {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % media.length);
+    } else if (direction === "prev") {
+      setCurrentIndex(
+        (prevIndex) => (prevIndex - 1 + media.length) % media.length
+      );
+    }
+  };
+
   const handleLike = (photoId) => {
     const isCurrentlyLiked = likedMedia[photoId];
 
@@ -50,7 +56,6 @@ function CreationPhotographe({ media, id, onUpdateLikes, sortBy }) {
         [photoId]: prev[photoId] + (isCurrentlyLiked ? -1 : 1),
       };
 
-      // Met à jour le total des likes dans le parent
       const totalLikes = Object.values(newLikesCount).reduce(
         (total, count) => total + count,
         0
@@ -61,16 +66,30 @@ function CreationPhotographe({ media, id, onUpdateLikes, sortBy }) {
     });
   };
 
+  const sortedMedia = [...media].sort((a, b) => {
+    switch (sortBy) {
+      case "likes":
+        return b.likes - a.likes;
+      case "dates":
+        return new Date(b.date) - new Date(a.date);
+      case "titles":
+        return a.title.localeCompare(b.title);
+      default:
+        return 0;
+    }
+  });
+
   return (
     <section className="photograph-medias">
-      {sortedMedia.map((item) => (
+      {sortedMedia.map((item, index) => (
         <article className="card" key={item.id} data-aos="fade-up">
-          <Link>
+          <div className="image-container" onClick={() => openModal(index)}>
             <MediaContent item={item} photographerId={id} />
-          </Link>
+          </div>
           <div className="card-body">
             <h3 className="card-title">{item.title}</h3>
             <div className="card-likes">
+              {/* Utilisation de likesCount au lieu de item.likes */}
               <span className="number-likes">{likesCount[item.id]}</span>
               <button className="btn-likes" onClick={() => handleLike(item.id)}>
                 <FontAwesomeIcon
@@ -82,6 +101,14 @@ function CreationPhotographe({ media, id, onUpdateLikes, sortBy }) {
           </div>
         </article>
       ))}
+
+      <Lightbox
+        images={sortedMedia}
+        isOpen={modalIsOpen}
+        closeModal={closeModal}
+        currentIndex={currentIndex}
+        changeImage={changeImage}
+      />
     </section>
   );
 }
@@ -92,12 +119,11 @@ CreationPhotographe.propTypes = {
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       image: PropTypes.string,
-      video: PropTypes.string,
       likes: PropTypes.number.isRequired,
     })
   ).isRequired,
   id: PropTypes.string.isRequired,
-  onUpdateLikes: PropTypes.func,
+  onUpdateLikes: PropTypes.func.isRequired,
   sortBy: PropTypes.string,
 };
 
